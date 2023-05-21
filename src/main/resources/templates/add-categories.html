@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div class="row" layout:fragment="addCategoriesPage">
+    <div class="col-md-6">
+        <form th:action="@{''}" method="post">
+            <div class="form-group">
+                <label class="form-label">CATEGORY-NAME:</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="category-name">
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary">+</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <strong><h5>DELETE</h5></strong>
+            </div>
+            <div class="col-md-6">
+                <strong><h5>CATEGORY-NAME</h5></strong>
+            </div>
+        </div>
+        <div class="row" th:each="category:${taskCategoriesList}">
+            <div class="col-md-6">
+                <form th:action="@{'/trello/delete-category'}"method="post">
+                    <input type="hidden" th:value="${category.getId()}" name="category-id">
+                    <button class="btn btn-danger">-</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h5 th:text="${category.getName()}"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

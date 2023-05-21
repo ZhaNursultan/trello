@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div class="row" layout:fragment="homePage">
+    <div class="row">
+        <div class="col-md-3">
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalOne">+New Folder</button>
+        </div>
+        <br>
+        <div class="row" th:each="folder:${folders}">
+            <div class="card">
+                <h4 class="card-title" th:text="${folder.getName()}"></h4>
+                <div class="card-body">
+                    <a th:href="@{'/trello/details/'+${folder.getId()}}" class="btn btn-primary">DETAILS</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalOne" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form th:action="@{'/trello/add-folder'}" method="post">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD NEW FOLDER</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">FOLDER NAME:</label>
+                            <input type="text" class="form-control" name="folder-name" placeholder="Folder Name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                        <button type="submit" class="btn btn-success">ADD FOLDER</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</html>
